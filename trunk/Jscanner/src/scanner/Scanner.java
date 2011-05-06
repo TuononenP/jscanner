@@ -80,10 +80,11 @@ public class Scanner {
 	/***
 	 * Read next character from the file.
 	 */
-	public static void readNextChar() {
+	public static char readNextChar() {
 		try {
 			//read in next char
 			current = din.readChar();
+			return current;
 
 			//close DataInputStream
 //			din.close(); //TODO: move at the end of scan
@@ -94,6 +95,7 @@ public class Scanner {
 		catch(IOException ioe) {
 			System.out.println("IOException : " + ioe);
 		}
+		return ' ';
 	}
 	
 	/**
@@ -112,8 +114,7 @@ public class Scanner {
 			readNextChar();
 			do {
 				sB.append(current);
-				readNextChar();
-			} while (current != ' ');
+			} while (readNextChar() != ' ');
 //			if (sB.length() > 0) {
 				writeTokenToFile(sB.toString());
 				//flush string builder
