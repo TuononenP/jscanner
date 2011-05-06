@@ -17,11 +17,19 @@
 package scanner;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
+/**
+ * Handles input and output file operations. 
+ *
+ */
 public class IOFiles {
 
 	private File inputFile;
 	private File outputFile;
+	private PrintWriter pw = null;
 
 	public File getInputFile() {
 		return inputFile;
@@ -38,5 +46,20 @@ public class IOFiles {
 	public void setOutputFile(File outputFile) {
 		this.outputFile = outputFile;
 	}
-	
+
+	public void writeLine(String s) {
+		try {
+			pw = new PrintWriter(new FileWriter(getOutputFile(), true));
+			pw.println(s);
+			pw.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		finally {
+			//close the PrintWriter
+			if (pw != null)
+				pw.close();
+		}
+	}
+
 }

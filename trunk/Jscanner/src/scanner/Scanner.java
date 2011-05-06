@@ -84,7 +84,14 @@ public class Scanner {
 	}
 	
 	/**
-	 * Read in characters as lon
+	 * Write token to a file.
+	 */
+	public void writeTokenToFile(String s) {
+		files.writeLine(s);
+	}
+	
+	/**
+	 * Read in characters as long as white space is encountered.
 	 */
 	public void scan() {
 		
