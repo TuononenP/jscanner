@@ -22,23 +22,36 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+/**
+ * Simple scanner.
+ *   -recognizes the keywords of the language 
+ *   -recognizes special characters or groups of them
+ *   -recognizes identifiers, integers, reals, decimals, strings, etc
+ *   -ignores whitespaces (tabs and blanks) and comments
+ * 
+ */
 public class Scanner {
 
 	//global variables
 	private static IOFiles files;
 	private char current = ' ';
-
+	private String lexeme = "";
+	
 	/**
 	 * Main.
 	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
-
+		//set input file
 		if (args.length > 0 ) {
 			files.setInputFile(new File(args[0]));
+		} else { //stop program
+			System.exit(0);
 		}
-
+		
+		//set output file
+		files.setOutputFile(new File(System.getProperty("user.dir") + System.getProperty("file.separator") + "tokenfile.txt"));
 	}
 
 	/**
@@ -68,6 +81,13 @@ public class Scanner {
 		catch(IOException ioe) {
 			System.out.println("IOException : " + ioe);
 		}
+	}
+	
+	/**
+	 * Read in characters as lon
+	 */
+	public void scan() {
+		
 	}
 
 }
