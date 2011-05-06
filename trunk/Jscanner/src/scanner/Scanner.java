@@ -34,8 +34,10 @@ public class Scanner {
 
 	//global variables
 	private static IOFiles files;
-	private char current = ' ';
-	private String lexeme = "";
+	private static char current = ' ';
+	private FileInputStream fin;
+	private static DataInputStream din;
+	private static StringBuilder sB;
 	
 	/**
 	 * Main.
@@ -43,37 +45,48 @@ public class Scanner {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		files = new IOFiles();
 		//set input file
-		if (args.length > 0 ) {
-			files.setInputFile(new File(args[0]));
-		} else { //stop program
-			System.exit(0);
-		}
+//		if (args.length > 0 ) {
+//			files.setInputFile(new File(args[0]));
+//		} else { //stop program
+//			System.exit(0);
+//		}
+
+		files.setInputFile(new File(System.getProperty("user.dir") + System.getProperty("file.separator") + "test.txt")); //for testing
 		
 		//set output file
 		files.setOutputFile(new File(System.getProperty("user.dir") + System.getProperty("file.separator") + "tokenfile.txt"));
+		
+		//initialize
+		new Scanner();
+		
+//		scan();
 	}
 
 	/**
-	 * Constructor.
+	 * Initialize.
 	 */
 	public Scanner() {
-
+		try {
+			fin = new FileInputStream(files.getInputFile());
+			din = new DataInputStream(fin);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		sB = new StringBuilder();
 	}
 
 	/***
 	 * Read next character from the file.
 	 */
-	public void readNextChar() {
+	public static void readNextChar() {
 		try {
-			FileInputStream fin = new FileInputStream(files.getInputFile());
-			DataInputStream din = new DataInputStream(fin);
-
 			//read in next char
 			current = din.readChar();
 
 			//close DataInputStream
-			din.close();
+//			din.close(); //TODO: move at the end of scan
 		}
 		catch(FileNotFoundException fe) {
 			System.out.println("FileNotFoundException : " + fe);
@@ -86,15 +99,27 @@ public class Scanner {
 	/**
 	 * Write token to a file.
 	 */
-	public void writeTokenToFile(String s) {
+	public static void writeTokenToFile(String s) {
 		files.writeLine(s);
 	}
 	
 	/**
 	 * Read in characters as long as white space is encountered.
 	 */
-	public void scan() {
-		
+	public static void scan() {
+		do {
+			//read in next character
+			readNextChar();
+			do {
+				sB.append(current);
+				readNextChar();
+			} while (current != ' ');
+//			if (sB.length() > 0) {
+				writeTokenToFile(sB.toString());
+				//flush string builder
+				sB.replace(0, sB.length(), "");
+//			}
+		} while (current != -1); //end of stream
 	}
 
 }
