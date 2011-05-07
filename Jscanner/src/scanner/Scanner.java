@@ -77,6 +77,38 @@ public class Scanner {
 
 	}
 
+	private static void scan(char[] tmp_str) {
+		int result=0;
+		int result_op=0;
+		char extra_ch=0; //next character in the stream
+		char extra_ch2=0; //second next character in the stream
+
+		//go through every character in the file
+		for(cell_num=0; cell_num < tmp_str.length; cell_num++) {
+			if(cell_num < tmp_str.length-2) {
+				extra_ch = tmp_str[cell_num+1];
+			}
+			if(cell_num < tmp_str.length-3) {
+				extra_ch2 = tmp_str[cell_num+2];
+			}
+			
+			if(PrintToken.printKeyword(tmp_str, cell_num)) { //check for keywords
+				//do nothing -> break
+			} else if( (result = isDelimiter(tmp_str[cell_num], extra_ch, extra_ch2, tmp_str, cell_num)) != TokenConstants.NOT_DELIMITER) {
+				PrintToken.printDelimiter(result, opt_cell);
+			}
+			else if(result == TokenConstants.NOT_DELIMITER){
+				if((result_op = isOperator(tmp_str[cell_num], extra_ch)) != TokenConstants.NOT_OPERATION){
+					PrintToken.printOperator(result_op);
+				}  
+				else if(result_op == TokenConstants.NOT_OPERATION) {
+					PrintToken.printVarOrNum(tmp_str, cell_num);
+				}
+			}  	
+		}
+		return;
+	}
+	
 	/**
 	 * Write token to a file.
 	 */
@@ -184,36 +216,4 @@ public class Scanner {
 		}
 	}
 
-	private static void scan(char[] tmp_str) {
-		int result=0;
-		int result_op=0;
-		char extra_ch=0; //next character in the stream
-		char extra_ch2=0; //second next character in the stream
-
-		//go through every character in the file
-		for(cell_num=0; cell_num < tmp_str.length; cell_num++) {
-			if(cell_num < tmp_str.length-2) {
-				extra_ch = tmp_str[cell_num+1];
-			}
-			if(cell_num < tmp_str.length-3) {
-				extra_ch2 = tmp_str[cell_num+2];
-			}
-			
-			if(PrintToken.printKeyword(tmp_str, cell_num)) { //check for keywords
-				//do nothing -> break
-			} else if( (result = isDelimiter(tmp_str[cell_num], extra_ch, extra_ch2, tmp_str, cell_num)) != TokenConstants.NOT_DELIMITER) {
-				PrintToken.printDelimiter(result, opt_cell);
-			}
-			else if(result == TokenConstants.NOT_DELIMITER){
-				if((result_op = isOperator(tmp_str[cell_num], extra_ch)) != TokenConstants.NOT_OPERATION){
-					PrintToken.printOperator(result_op);
-				}  
-				else if(result_op == TokenConstants.NOT_OPERATION) {
-					PrintToken.printVarOrNum(tmp_str, cell_num);
-				}
-			}  	
-		}
-		return;
-	}
-	
 }
