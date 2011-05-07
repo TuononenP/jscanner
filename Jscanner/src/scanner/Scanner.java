@@ -24,7 +24,6 @@ import java.io.File;
 import java.util.ArrayList;
 
 import constants.TokenConstants;
-import constants.TokenNames;
 
 /**
  * Simple scanner.
@@ -39,10 +38,6 @@ public class Scanner {
 
 	//global variables
 	private static IOFiles files;
-//	private static char current = ' ';
-//	private FileInputStream fin;
-//	private static DataInputStream din;
-//	private static StringBuilder sB;
 	private static int opt_cell = 0;
 	private static int cell_num=0;
 
@@ -67,33 +62,7 @@ public class Scanner {
 	 * 
 	 * @param args
 	 */
-	//	public static void main(String[] args) {
-	//		files = new IOFiles();
-	//		//set input file
-	////		if (args.length > 0 ) {
-	////			files.setInputFile(new File(args[0]));
-	////		} else { //stop program
-	////			System.exit(0);
-	////		}
-	//
-	//		files.setInputFile(new File(System.getProperty("user.dir") + System.getProperty("file.separator") + "test.txt")); //for testing
-	//		
-	//		//set output file
-	//		files.setOutputFile(new File(System.getProperty("user.dir") + System.getProperty("file.separator") + "tokenfile.txt"));
-	//		
-	//		//initialize
-	//		new Scanner();
-	//		
-	////		scan();
-	//	}
-
 	public static void main(String[] args) {
-		//	char str[];
-		//	char ch;
-		//	char p;
-		//	int i=0;
-		//	int result=0;
-
 		IOFiles.setInputFile(new File(System.getProperty("user.dir") + System.getProperty("file.separator") + "inputfile.txt")); //for testing
 
 		//set output file
@@ -108,65 +77,12 @@ public class Scanner {
 
 	}
 
-//	/**
-//	 * Initialize.
-//	 */
-//	public Scanner() {
-//		try {
-//			fin = new FileInputStream(files.getInputFile());
-//			din = new DataInputStream(fin);
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		}
-//		sB = new StringBuilder();
-//	}
-
-//	/***
-//	 * Read next character from the file.
-//	 */
-//	public static boolean readNextChar() {
-//		try {
-//			//read in next char
-//			current = din.readChar();
-//			return true; //TODO: Change: now always true.
-//
-//			//close DataInputStream
-//			//			din.close(); //TODO: move at the end of scan
-//		}
-//		catch(FileNotFoundException fe) {
-//			System.out.println("FileNotFoundException : " + fe);
-//		}
-//		catch(IOException ioe) {
-//			System.out.println("IOException : " + ioe);
-//		}
-//		return false;
-//	}
-
 	/**
 	 * Write token to a file.
 	 */
 	public static void writeTokenToFile(String s) {
 		files.writeLine(s);
 	}
-
-	//	/**
-	//	 * Read in characters as long as white space is encountered.
-	//	 */
-	//	public static void scan() {
-	//		do {
-	//			//read in next character
-	//			readNextChar();
-	//			do {
-	//				sB.append(current);
-	//			} while (readNextChar() != ' ');
-	////			if (sB.length() > 0) {
-	//				writeTokenToFile(sB.toString());
-	//				//flush string builder
-	//				sB.replace(0, sB.length(), "");
-	////			}
-	//		} while (current != -1); //end of stream
-	//	}
-
 
 	public static boolean isNumber(char ch) {
 		if(ch >= '0' && ch <= '9') 
@@ -271,9 +187,10 @@ public class Scanner {
 	private static void scan(char[] tmp_str) {
 		int result=0;
 		int result_op=0;
-		char extra_ch=0;
-		char extra_ch2=0;
+		char extra_ch=0; //next character in the stream
+		char extra_ch2=0; //second next character in the stream
 
+		//go through every character in the file
 		for(cell_num=0; cell_num < tmp_str.length; cell_num++) {
 			if(cell_num < tmp_str.length-2) {
 				extra_ch = tmp_str[cell_num+1];
@@ -282,7 +199,7 @@ public class Scanner {
 				extra_ch2 = tmp_str[cell_num+2];
 			}
 			
-			if(PrintToken.printKeyword(tmp_str, cell_num)) {
+			if(PrintToken.printKeyword(tmp_str, cell_num)) { //check for keywords
 				//do nothing -> break
 			} else if( (result = isDelimiter(tmp_str[cell_num], extra_ch, extra_ch2, tmp_str, cell_num)) != TokenConstants.NOT_DELIMITER) {
 				PrintToken.printDelimiter(result, opt_cell);
