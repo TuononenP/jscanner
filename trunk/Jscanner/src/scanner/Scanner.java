@@ -77,7 +77,11 @@ public class Scanner {
 		if (args.length == 0)
 			IOFiles.setOutputFile(new File(System.getProperty("user.dir") + System.getProperty("file.separator") + "tokenfile.txt"));
 		else if (args.length >= 1)
-			IOFiles.setOutputFile(new File(args[0]));
+			try {
+				IOFiles.setOutputFile(new File(args[0]));
+			} catch (NullPointerException e) { //if the path name argument is null
+				System.out.println("Not eligible output file path");
+			}
 		
 		//get all lines from the input file and save them as array of chars
 		ArrayList<char[]> lines = IOFiles.loadFile(IOFiles.getInputFile().getAbsolutePath());
