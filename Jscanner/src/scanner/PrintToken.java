@@ -21,7 +21,7 @@ import constants.TokenNames;
 
 public class PrintToken {
 
-	public static int printDelimiter(int i, int opt_i) {
+	public static void printDelimiter(int i, int opt_i) {
 		switch(i) {
 		case TokenConstants.SEMI :
 			System.out.print(TokenNames.SEMI);
@@ -49,36 +49,35 @@ public class PrintToken {
 			break;
 		case TokenConstants.OB_CMT :
 			System.out.print(TokenNames.OB_CMT);
-			i++; 
-			return i;
+			Scanner.setCell_num(Scanner.getCell_num()+1);
+			break;
 		case TokenConstants.CB_CMT :
 			System.out.print(TokenNames.CB_CMT);
-			i++; 
-			return i;
+			Scanner.setCell_num(Scanner.getCell_num()+1);
+			break;
 		case TokenConstants.S_CMT :
 			System.out.print(TokenNames.S_CMT);
-			i++;
-			return i;
+			Scanner.setCell_num(Scanner.getCell_num()+1);
+			break;
 		case TokenConstants.CONST_CHAR :
 			System.out.print(TokenNames.CONST_CHAR);
-			i += opt_i;
-			return i;
+			Scanner.setCell_num(Scanner.getCell_num()+Scanner.getOpt_cell());
+			break;
 		case TokenConstants.CONST_STRING :
 			System.out.print(TokenNames.CONST_STRING);
-			i += opt_i;
-			return i;
+			Scanner.setCell_num(Scanner.getCell_num()+Scanner.getOpt_cell());
+			break;
 		}
-		return 0;
 	}
 	
-	public static int printOperator(int i) {
+	public static void printOperator(int i) {
 		switch(i) {
 		case TokenConstants.ASSIGN :
 			System.out.print(TokenNames.ASSIGN);
 			break;
 		case TokenConstants.EQ :
 			System.out.print(TokenNames.EQ); 
-			return i;
+			break;
 		case TokenConstants.DIV :
 			System.out.print(TokenNames.DIV);
 			break;
@@ -93,33 +92,32 @@ public class PrintToken {
 			break;
 		case TokenConstants.DIV_ASSIGN :
 			System.out.print(TokenNames.DIV_ASSIGN); 
-			return i;
+			break;
 		case TokenConstants.MUL_ASSIGN :
 			System.out.print(TokenNames.MUL_ASSIGN); 
-			return i;
+			break;
 		case TokenConstants.ADD_ASSIGN :
 			System.out.print(TokenNames.ADD_ASSIGN);
-			return i;
+			break;
 		case TokenConstants.SUB_ASSIGN :
 			System.out.print(TokenNames.SUB_ASSIGN);
-			return i;
+			break;
 		case TokenConstants.LT : 
 			System.out.print(TokenNames.LT);
 			break;
 		case TokenConstants.GT :
 			System.out.print(TokenNames.GT);
-			return i;
+			break;
 		case TokenConstants.EOL :
 			System.out.print(TokenNames.EOL);
-			return i;
+			break;
 		case TokenConstants.GOL :
 			System.out.print(TokenNames.GOL);
-			return i;
+			break;
 		case TokenConstants.NOT_EQ : 
 			System.out.print(TokenNames.NOT_EQ);
-			return i;
+			break;
 		}
-		return 0; 
 	}
 	
 	public static void printVarOrNum(char[] tmp_str, int i) {
