@@ -33,7 +33,6 @@ import constants.TokenConstants;
 public class Scanner {
 
 	//global variables
-	private static IOFiles files;
 	private static int opt_cell = 0;
 	private static int cell_num=0;
 	private static StringBuilder sB;
@@ -77,7 +76,8 @@ public class Scanner {
 		//get all lines from the input file and save them as array of chars
 		ArrayList<char[]> lines = IOFiles.loadFile(IOFiles.getInputFile().getAbsolutePath());
 		
-		sB = new StringBuilder();
+		//initialize StringBuilder
+		setSb(new StringBuilder());
 		
 		//go through every line in the file (now arraylist)
 		for(char[] line : lines) {
@@ -85,8 +85,11 @@ public class Scanner {
 			getSb().append("\n"); //new line
 		}
 		
-		System.out.print(sB.toString());
-
+		//print output to a file
+		IOFiles.write(getSb().toString());
+		
+		//print output to console
+		System.out.print(getSb().toString());
 	}
 
 	private static void scan(char[] tmp_str) {
@@ -121,11 +124,4 @@ public class Scanner {
 		return;
 	}
 	
-	/**
-	 * Write token to a file.
-	 */
-	public static void writeTokenToFile(String s) {
-		files.writeLine(s);
-	}
-
 }
