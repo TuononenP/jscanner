@@ -1,5 +1,5 @@
 /**************************************************************************
- *  Copyright (C) 2011  Petri Tuononen                                    *
+ *  Copyright (C) 2011  Petri Tuononen, 박영덕                                                                              *
  * 	                                                                      *
  *  This program is free software: you can redistribute it and/or modify  *
  *  it under the terms of the GNU General Public License as published by  *
@@ -151,21 +151,21 @@ public class Scanner {
 	//	}
 
 
-	private static boolean isNumber(char ch) {
+	public static boolean isNumber(char ch) {
 		if(ch >= '0' && ch <= '9') 
 			return true;
 		else
 			return false;
 	}
 
-	private static boolean isVar(char ch) {
+	public static boolean isVar(char ch) {
 		if((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || ch == '_' || ch == '.')
 			return true;
 		else 
 			return false;
 	}
 
-	private static boolean isBlank(char ch) {
+	public static boolean isBlank(char ch) {
 		if(ch == ' ' || ch == '\n')
 			return true;
 		else 
@@ -298,133 +298,24 @@ public class Scanner {
 				i+=5;
 			}
 			else if( (result = isDelimiter(tmp_str[i], extra_ch, extra_ch2, tmp_str, i)) != TokenConstants.NOT_DELIMITER) {
-				printDelimiter(result);
+				i = PrintToken.printDelimiter(result, opt_i);
 			}
 			else if(result == TokenConstants.NOT_DELIMITER){
 				if((result_op = isOperator(tmp_str[i], extra_ch)) != TokenConstants.NOT_OPERATION){
-					printOperator(result_op);
+					int return_val = PrintToken.printOperator(result_op);
+					if (return_val != 0) 
+						i = return_val;
 				}  
 				else if(result_op == TokenConstants.NOT_OPERATION) {
-					if (isVar(tmp_str[i])) {
-						System.out.print(TokenNames.VAR);
-					} else if (isNumber(tmp_str[i])) {
-						System.out.print(TokenNames.NUMBER);
-					} else if (isBlank(tmp_str[i])) {
-						//do not print white spaces					
-					} else {
-						//do nothing
-					}
+					PrintToken.printVarOrNum(tmp_str, i);
 				}
 			}  	
 		}
 		return;
 	}
 	
-	private static void printDelimiter(int i) {
-		switch(i) {
-		case TokenConstants.SEMI :
-			System.out.print(TokenNames.SEMI);
-			break;
-		case TokenConstants.O_PA :
-			System.out.print(TokenNames.O_PA);
-			break;
-		case TokenConstants.C_PA :
-			System.out.print(TokenNames.C_PA);
-			break;
-		case TokenConstants.O_SB :
-			System.out.print(TokenNames.O_SB);
-			break;
-		case TokenConstants.C_SB :
-			System.out.print(TokenNames.C_SB);
-			break;
-		case TokenConstants.COMM :
-			System.out.print(TokenNames.COMM); 
-			break;
-		case TokenConstants.S_QUOT :
-			System.out.print(TokenNames.S_QUOT); 
-			break;
-		case TokenConstants.D_QUOT :
-			System.out.print(TokenNames.D_QUOT); 
-			break;
-		case TokenConstants.OB_CMT :
-			System.out.print(TokenNames.OB_CMT); i++; 
-			break;
-		case TokenConstants.CB_CMT :
-			System.out.print(TokenNames.CB_CMT);i++; 
-			break;
-		case TokenConstants.S_CMT :
-			System.out.print(TokenNames.S_CMT); i++;
-			break;
-		case TokenConstants.CONST_CHAR :
-			System.out.print(TokenNames.CONST_CHAR);
-			i += opt_i;
-			opt_i=0; 
-			break;
-		case TokenConstants.CONST_STRING :
-			System.out.print(TokenNames.CONST_STRING);
-			i += opt_i;
-			opt_i=0; 
-			break;
-		}
-	}
+//	private static int printKeyword(char[] tmp_str, int i) {
+//		
+//	}
 	
-	private static void printOperator(int i) {
-		switch(i) {
-		case TokenConstants.ASSIGN :
-			System.out.print(TokenNames.ASSIGN);
-			break;
-		case TokenConstants.EQ :
-			System.out.print(TokenNames.EQ); 
-			i++;
-			break;
-		case TokenConstants.DIV :
-			System.out.print(TokenNames.DIV);
-			break;
-		case TokenConstants.MUL :
-			System.out.print(TokenNames.MUL);
-			break;
-		case TokenConstants.ADD :
-			System.out.print(TokenNames.ADD);
-			break;
-		case TokenConstants.SUB :
-			System.out.print(TokenNames.SUB);
-			break;
-		case TokenConstants.DIV_ASSIGN :
-			System.out.print(TokenNames.DIV_ASSIGN); 
-			i++; 
-			break;
-		case TokenConstants.MUL_ASSIGN :
-			System.out.print(TokenNames.MUL_ASSIGN); 
-			i++; 
-			break;
-		case TokenConstants.ADD_ASSIGN :
-			System.out.print(TokenNames.ADD_ASSIGN);
-			i++;
-			break;
-		case TokenConstants.SUB_ASSIGN :
-			System.out.print(TokenNames.SUB_ASSIGN);
-			i++; 
-			break;
-		case TokenConstants.LT : 
-			System.out.print(TokenNames.LT);
-			break;
-		case TokenConstants.GT :
-			System.out.print(TokenNames.GT);
-			i++; 
-			break;
-		case TokenConstants.EOL :
-			System.out.print(TokenNames.EOL);
-			i++;
-			break;
-		case TokenConstants.GOL :
-			System.out.print(TokenNames.GOL);
-			i++;
-			break;
-		case TokenConstants.NOT_EQ : 
-			System.out.print(TokenNames.NOT_EQ);
-			i++;
-			break;
-		} 
-	}
-
 }
