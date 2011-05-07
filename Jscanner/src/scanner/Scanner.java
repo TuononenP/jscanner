@@ -68,11 +68,17 @@ public class Scanner {
 	 */
 	public static void main(String[] args) {
 		//set input file
-		IOFiles.setInputFile(new File(System.getProperty("user.dir") + System.getProperty("file.separator") + "inputfile.txt")); //for testing
+		if (args.length == 0)
+			IOFiles.setInputFile(new File(System.getProperty("user.dir") + System.getProperty("file.separator") + "inputfile.txt")); //for testing
+		else 
+			IOFiles.setInputFile(new File(args[0]));
 
 		//set output file
-		IOFiles.setOutputFile(new File(System.getProperty("user.dir") + System.getProperty("file.separator") + "tokenfile.txt"));
-
+		if (args.length == 0)
+			IOFiles.setOutputFile(new File(System.getProperty("user.dir") + System.getProperty("file.separator") + "tokenfile.txt"));
+		else if (args.length >= 1)
+			IOFiles.setOutputFile(new File(args[0]));
+		
 		//get all lines from the input file and save them as array of chars
 		ArrayList<char[]> lines = IOFiles.loadFile(IOFiles.getInputFile().getAbsolutePath());
 		
@@ -108,7 +114,7 @@ public class Scanner {
 			}
 			
 			if(PrintToken.printKeyword(tmp_str, cell_num)) { //check for keywords
-				//do nothing here -> break (the operation is handled inside the if statement)
+				//do nothing here -> break (the operation is handled inside the if statement)lineC
 			} else if( (result = ScanToken.isDelimiter(tmp_str[cell_num], extra_ch, extra_ch2, tmp_str, cell_num)) != TokenConstants.NOT_DELIMITER) { //check for delimiter
 				PrintToken.printDelimiter(result, opt_cell);
 			}
