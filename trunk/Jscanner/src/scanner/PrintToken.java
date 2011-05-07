@@ -121,12 +121,12 @@ public class PrintToken {
 	}
 	
 	public static void printVarOrNum(char[] tmp_str, int i) {
-		if (Scanner.isVar(tmp_str[i])) {
+		if (Scanner.isBlank(tmp_str[i])) {
+			//do not print white spaces	
+		} else if (Scanner.isVar(tmp_str[i])) {
 			System.out.print(TokenNames.VAR);
 		} else if (Scanner.isNumber(tmp_str[i])) {
 			System.out.print(TokenNames.NUMBER);
-		} else if (Scanner.isBlank(tmp_str[i])) {
-			//do not print white spaces					
 		} else {
 			//do nothing
 		}
