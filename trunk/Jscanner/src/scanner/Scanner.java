@@ -36,7 +36,8 @@ public class Scanner {
 	private static IOFiles files;
 	private static int opt_cell = 0;
 	private static int cell_num=0;
-
+	private static StringBuilder sB;
+	
 	public static int getOpt_cell() {
 		return opt_cell;
 	}
@@ -51,6 +52,14 @@ public class Scanner {
 
 	public static void setCell_num(int cell_num) {
 		Scanner.cell_num = cell_num;
+	}
+
+	public static StringBuilder getSb() {
+		return sB;
+	}
+
+	public static void setSb(StringBuilder sB) {
+		Scanner.sB = sB;
 	}
 
 	/**
@@ -68,11 +77,15 @@ public class Scanner {
 		//get all lines from the input file and save them as array of chars
 		ArrayList<char[]> lines = IOFiles.loadFile(IOFiles.getInputFile().getAbsolutePath());
 		
+		sB = new StringBuilder();
+		
 		//go through every line in the file (now arraylist)
 		for(char[] line : lines) {
 			scan(line);
-			System.out.println();
+			getSb().append("\n"); //new line
 		}
+		
+		System.out.print(sB.toString());
 
 	}
 
@@ -92,15 +105,15 @@ public class Scanner {
 			}
 			
 			if(PrintToken.printKeyword(tmp_str, cell_num)) { //check for keywords
-				//do nothing -> break
-			} else if( (result = ScanToken.isDelimiter(tmp_str[cell_num], extra_ch, extra_ch2, tmp_str, cell_num)) != TokenConstants.NOT_DELIMITER) {
+				//do nothing here -> break (the operation is handled inside the if statement)
+			} else if( (result = ScanToken.isDelimiter(tmp_str[cell_num], extra_ch, extra_ch2, tmp_str, cell_num)) != TokenConstants.NOT_DELIMITER) { //check for delimiter
 				PrintToken.printDelimiter(result, opt_cell);
 			}
 			else if(result == TokenConstants.NOT_DELIMITER){
-				if((result_op = ScanToken.isOperator(tmp_str[cell_num], extra_ch)) != TokenConstants.NOT_OPERATION){
+				if((result_op = ScanToken.isOperator(tmp_str[cell_num], extra_ch)) != TokenConstants.NOT_OPERATION){ //check for operation
 					PrintToken.printOperator(result_op);
 				}  
-				else if(result_op == TokenConstants.NOT_OPERATION) {
+				else if(result_op == TokenConstants.NOT_OPERATION) { //check for white space, variable or number
 					PrintToken.printVarOrNum(tmp_str, cell_num);
 				}
 			}  	
