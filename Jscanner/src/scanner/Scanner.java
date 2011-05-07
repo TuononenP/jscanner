@@ -265,6 +265,7 @@ public class Scanner {
 			if(i < tmp_str.length-3) {
 				extra_ch2 = tmp_str[i+2];
 			}
+			
 			if( (i < tmp_str.length-3) && (tmp_str[i] == 'i' && tmp_str[i+1] == 'n' && tmp_str[i+2] == 't')) {
 				System.out.print(TokenNames.INT);
 				i+=2;
@@ -313,9 +314,5 @@ public class Scanner {
 		}
 		return;
 	}
-	
-//	private static int printKeyword(char[] tmp_str, int i) {
-//		
-//	}
 	
 }
