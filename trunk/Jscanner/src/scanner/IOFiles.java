@@ -32,7 +32,7 @@ public class IOFiles {
 
 	private static File inputFile;
 	private static File outputFile;
-	private PrintWriter pw = null;
+	private static PrintWriter pw = null;
 
 	public static File getInputFile() {
 		return inputFile;
@@ -50,7 +50,7 @@ public class IOFiles {
 		IOFiles.outputFile = outputFile;
 	}
 
-	public void writeLine(String s) {
+	public static void writeLine(String s) {
 		try {
 			pw = new PrintWriter(new FileWriter(getOutputFile(), true));
 			pw.println(s);
@@ -65,6 +65,21 @@ public class IOFiles {
 		}
 	}
 
+	public static void write(String s) {
+		try {
+			pw = new PrintWriter(new FileWriter(getOutputFile(), true));
+			pw.print(s);	
+			pw.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		finally {
+			//close the PrintWriter
+			if (pw != null)
+				pw.close();
+		}
+	}
+	
 	public static ArrayList<char[]> loadFile(String fileName) {
 		if ((fileName == null) || (fileName == ""))
 			throw new IllegalArgumentException();
