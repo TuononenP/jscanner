@@ -16,10 +16,13 @@
  **************************************************************************/
 package scanner;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 /**
  * Handles input and output file operations. 
@@ -27,24 +30,24 @@ import java.io.PrintWriter;
  */
 public class IOFiles {
 
-	private File inputFile;
-	private File outputFile;
+	private static File inputFile;
+	private static File outputFile;
 	private PrintWriter pw = null;
 
-	public File getInputFile() {
+	public static File getInputFile() {
 		return inputFile;
 	}
 
-	public void setInputFile(File inputFile) {
-		this.inputFile = inputFile;
+	public static void setInputFile(File inputFile) {
+		IOFiles.inputFile = inputFile;
 	}
 
-	public File getOutputFile() {
+	public static File getOutputFile() {
 		return outputFile;
 	}
 
-	public void setOutputFile(File outputFile) {
-		this.outputFile = outputFile;
+	public static void setOutputFile(File outputFile) {
+		IOFiles.outputFile = outputFile;
 	}
 
 	public void writeLine(String s) {
@@ -60,6 +63,31 @@ public class IOFiles {
 			if (pw != null)
 				pw.close();
 		}
+	}
+
+	public static ArrayList<char[]> loadFile(String fileName) {
+		if ((fileName == null) || (fileName == ""))
+			throw new IllegalArgumentException();
+
+		String line;
+		ArrayList<char[]> file = new ArrayList<char[]>();
+
+		try {    
+			BufferedReader in = new BufferedReader(new FileReader(fileName));
+
+			if (!in.ready())
+				throw new IOException();
+
+			while ((line = in.readLine()) != null)
+				file.add(line.toCharArray());
+
+			in.close();
+		}
+		catch (IOException e) {
+			System.out.println(e);
+			return null;
+		}
+		return file;
 	}
 
 }
