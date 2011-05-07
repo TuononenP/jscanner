@@ -132,4 +132,42 @@ public class PrintToken {
 		}
 	}
 	
+	public static boolean printKeyword(char[] tmp_str, int cell_num) {
+		if( (cell_num < tmp_str.length-3) && (tmp_str[cell_num] == 'i' && tmp_str[cell_num+1] == 'n' && tmp_str[cell_num+2] == 't')) {
+			System.out.print(TokenNames.INT);
+			Scanner.setCell_num(Scanner.getCell_num()+2);
+			return true;
+		} else if( (cell_num < tmp_str.length-4) && (tmp_str[cell_num] == 'c' && tmp_str[cell_num+1] == 'h' && tmp_str[cell_num+2] == 'a' && tmp_str[cell_num+3] == 'r')) {
+			System.out.print(TokenNames.CHAR);
+			Scanner.setCell_num(Scanner.getCell_num()+3);
+			return true;
+		} else if( (cell_num < tmp_str.length-2) && (tmp_str[cell_num] == 'i' && tmp_str[cell_num+1] == 'f')) {
+			System.out.print(TokenNames.IF);
+			Scanner.setCell_num(Scanner.getCell_num()+1);
+			return true;
+		} else if( (cell_num < tmp_str.length-4) && (tmp_str[cell_num] == 't' && tmp_str[cell_num+1] == 'h' && tmp_str[cell_num+2] == 'e' && tmp_str[cell_num+3] == 'n')) {
+			System.out.print(TokenNames.THEN);
+			Scanner.setCell_num(Scanner.getCell_num()+3);
+			return true;
+		} else if( (cell_num < tmp_str.length-4) && (tmp_str[cell_num] == 'e' && tmp_str[cell_num+1] == 'l' && tmp_str[cell_num+2] == 's' && tmp_str[cell_num+3] == 'e')) {
+			System.out.print(TokenNames.ELSE);
+			Scanner.setCell_num(Scanner.getCell_num()+3);
+			return true;
+		} else if( (cell_num < tmp_str.length-5) && (tmp_str[cell_num] == 'w' && tmp_str[cell_num+1] == 'h' && tmp_str[cell_num+2] == 'i' && tmp_str[cell_num+3] == 'l' && tmp_str[cell_num+4] == 'e')) {
+			System.out.print(TokenNames.WHILE);
+			Scanner.setCell_num(Scanner.getCell_num()+4);
+			return true;
+		} else if( (cell_num < tmp_str.length-3) && (tmp_str[cell_num] == 'f' && tmp_str[cell_num+1] == 'o' && tmp_str[cell_num+2] == 'r')) {
+			System.out.print(TokenNames.FOR);
+			Scanner.setCell_num(Scanner.getCell_num()+2);
+			return true;
+		} else if( (cell_num < tmp_str.length-6) && (tmp_str[cell_num] == 'r' && tmp_str[cell_num+1] == 'e' && tmp_str[cell_num+2] == 't' && tmp_str[cell_num+3] == 'u' && tmp_str[cell_num+4] == 'r' && tmp_str[cell_num+5] == 'n')) {
+			System.out.print(TokenNames.RETURN);
+			Scanner.setCell_num(Scanner.getCell_num()+5);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }
