@@ -299,7 +299,9 @@ public class Scanner {
 				i+=5;
 			}
 			else if( (result = isDelimiter(tmp_str[i], extra_ch, extra_ch2, tmp_str, i)) != TokenConstants.NOT_DELIMITER) {
-				i = PrintToken.printDelimiter(result, opt_i);
+				i += PrintToken.printDelimiter(result, opt_i);
+				if (i == TokenConstants.CONST_CHAR || i == TokenConstants.CONST_CHAR)
+					opt_i = 0;
 			}
 			else if(result == TokenConstants.NOT_DELIMITER){
 				if((result_op = isOperator(tmp_str[i], extra_ch)) != TokenConstants.NOT_OPERATION){

@@ -48,26 +48,27 @@ public class PrintToken {
 			System.out.print(TokenNames.D_QUOT); 
 			break;
 		case TokenConstants.OB_CMT :
-			System.out.print(TokenNames.OB_CMT); i++; 
-			break;
+			System.out.print(TokenNames.OB_CMT);
+			i++; 
+			return i;
 		case TokenConstants.CB_CMT :
-			System.out.print(TokenNames.CB_CMT);i++; 
-			break;
+			System.out.print(TokenNames.CB_CMT);
+			i++; 
+			return i;
 		case TokenConstants.S_CMT :
-			System.out.print(TokenNames.S_CMT); i++;
-			break;
+			System.out.print(TokenNames.S_CMT);
+			i++;
+			return i;
 		case TokenConstants.CONST_CHAR :
 			System.out.print(TokenNames.CONST_CHAR);
 			i += opt_i;
-			opt_i=0;
-			break;
+			return i;
 		case TokenConstants.CONST_STRING :
 			System.out.print(TokenNames.CONST_STRING);
 			i += opt_i;
-			opt_i=0; 
-			break;
+			return i;
 		}
-		return i;
+		return 0;
 	}
 	
 	public static int printOperator(int i) {
