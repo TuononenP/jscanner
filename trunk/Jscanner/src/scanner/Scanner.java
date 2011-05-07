@@ -43,7 +43,8 @@ public class Scanner {
 //	private FileInputStream fin;
 //	private static DataInputStream din;
 //	private static StringBuilder sB;
-	private static int opt_i = 0;
+	private static int opt_cell = 0;
+	private static int cell_num=0;
 
 	/**
 	 * Main.
@@ -191,7 +192,7 @@ public class Scanner {
 		else if(ch == '\''){
 			while(str[i] != '\n') {	
 				if(str[i] == '\'' && tmp_cnt == 1) {
-					opt_i = i; 
+					opt_cell = i; 
 					return TokenConstants.CONST_CHAR;
 				}
 				tmp_cnt++;
@@ -201,7 +202,7 @@ public class Scanner {
 		else if(ch == '\"' && flag == TokenConstants.TRUE) {
 			while(str[i] != '\n') {	
 				if(str[i] == '\"') {
-					opt_i=i;
+					opt_cell=i;
 					return TokenConstants.CONST_STRING;
 				}
 				i++;
@@ -252,65 +253,64 @@ public class Scanner {
 	}
 
 	private static void scan(char[] tmp_str) {
-		int i=0;
 		int result=0;
 		int result_op=0;
 		char extra_ch=0;
 		char extra_ch2=0;
 
-		for(i=0; i < tmp_str.length; i++) {
-			if(i < tmp_str.length-2) {
-				extra_ch = tmp_str[i+1];
+		for(cell_num=0; cell_num < tmp_str.length; cell_num++) {
+			if(cell_num < tmp_str.length-2) {
+				extra_ch = tmp_str[cell_num+1];
 			}
-			if(i < tmp_str.length-3) {
-				extra_ch2 = tmp_str[i+2];
+			if(cell_num < tmp_str.length-3) {
+				extra_ch2 = tmp_str[cell_num+2];
 			}
 			
-			if( (i < tmp_str.length-3) && (tmp_str[i] == 'i' && tmp_str[i+1] == 'n' && tmp_str[i+2] == 't')) {
+			if( (cell_num < tmp_str.length-3) && (tmp_str[cell_num] == 'i' && tmp_str[cell_num+1] == 'n' && tmp_str[cell_num+2] == 't')) {
 				System.out.print(TokenNames.INT);
-				i+=2;
+				cell_num+=2;
 			} 
-			else if( (i < tmp_str.length-4) && (tmp_str[i] == 'c' && tmp_str[i+1] == 'h' && tmp_str[i+2] == 'a' && tmp_str[i+3] == 'r')) {
+			else if( (cell_num < tmp_str.length-4) && (tmp_str[cell_num] == 'c' && tmp_str[cell_num+1] == 'h' && tmp_str[cell_num+2] == 'a' && tmp_str[cell_num+3] == 'r')) {
 				System.out.print(TokenNames.CHAR);
-				i+=3;
+				cell_num+=3;
 			}
-			else if( (i < tmp_str.length-2) && (tmp_str[i] == 'i' && tmp_str[i+1] == 'f')) {
+			else if( (cell_num < tmp_str.length-2) && (tmp_str[cell_num] == 'i' && tmp_str[cell_num+1] == 'f')) {
 				System.out.print(TokenNames.IF);
-				i+=1;
+				cell_num+=1;
 			}
-			else if( (i < tmp_str.length-4) && (tmp_str[i] == 't' && tmp_str[i+1] == 'h' && tmp_str[i+2] == 'e' && tmp_str[i+3] == 'n')) {
+			else if( (cell_num < tmp_str.length-4) && (tmp_str[cell_num] == 't' && tmp_str[cell_num+1] == 'h' && tmp_str[cell_num+2] == 'e' && tmp_str[cell_num+3] == 'n')) {
 				System.out.print(TokenNames.THEN);
-				i+=3;
+				cell_num+=3;
 			}
-			else if( (i < tmp_str.length-4) && (tmp_str[i] == 'e' && tmp_str[i+1] == 'l' && tmp_str[i+2] == 's' && tmp_str[i+3] == 'e')) {
+			else if( (cell_num < tmp_str.length-4) && (tmp_str[cell_num] == 'e' && tmp_str[cell_num+1] == 'l' && tmp_str[cell_num+2] == 's' && tmp_str[cell_num+3] == 'e')) {
 				System.out.print(TokenNames.ELSE);
-				i+=3;
+				cell_num+=3;
 			}
-			else if( (i < tmp_str.length-5) && (tmp_str[i] == 'w' && tmp_str[i+1] == 'h' && tmp_str[i+2] == 'i' && tmp_str[i+3] == 'l' && tmp_str[i+4] == 'e')) {
+			else if( (cell_num < tmp_str.length-5) && (tmp_str[cell_num] == 'w' && tmp_str[cell_num+1] == 'h' && tmp_str[cell_num+2] == 'i' && tmp_str[cell_num+3] == 'l' && tmp_str[cell_num+4] == 'e')) {
 				System.out.print(TokenNames.WHILE);
-				i+=4;
+				cell_num+=4;
 			}
-			else if( (i < tmp_str.length-3) && (tmp_str[i] == 'f' && tmp_str[i+1] == 'o' && tmp_str[i+2] == 'r')) {
+			else if( (cell_num < tmp_str.length-3) && (tmp_str[cell_num] == 'f' && tmp_str[cell_num+1] == 'o' && tmp_str[cell_num+2] == 'r')) {
 				System.out.print(TokenNames.FOR);
-				i+=2;
+				cell_num+=2;
 			} 
-			else if( (i < tmp_str.length-6) && (tmp_str[i] == 'r' && tmp_str[i+1] == 'e' && tmp_str[i+2] == 't' && tmp_str[i+3] == 'u' && tmp_str[i+4] == 'r' && tmp_str[i+5] == 'n')) {
+			else if( (cell_num < tmp_str.length-6) && (tmp_str[cell_num] == 'r' && tmp_str[cell_num+1] == 'e' && tmp_str[cell_num+2] == 't' && tmp_str[cell_num+3] == 'u' && tmp_str[cell_num+4] == 'r' && tmp_str[cell_num+5] == 'n')) {
 				System.out.print(TokenNames.RETURN);
-				i+=5;
+				cell_num+=5;
 			}
-			else if( (result = isDelimiter(tmp_str[i], extra_ch, extra_ch2, tmp_str, i)) != TokenConstants.NOT_DELIMITER) {
-				i += PrintToken.printDelimiter(result, opt_i);
-				if (i == TokenConstants.CONST_CHAR || i == TokenConstants.CONST_CHAR)
-					opt_i = 0;
+			else if( (result = isDelimiter(tmp_str[cell_num], extra_ch, extra_ch2, tmp_str, cell_num)) != TokenConstants.NOT_DELIMITER) {
+				cell_num += PrintToken.printDelimiter(result, opt_cell);
+				if (cell_num == TokenConstants.CONST_CHAR || cell_num == TokenConstants.CONST_CHAR)
+					opt_cell = 0;
 			}
 			else if(result == TokenConstants.NOT_DELIMITER){
-				if((result_op = isOperator(tmp_str[i], extra_ch)) != TokenConstants.NOT_OPERATION){
+				if((result_op = isOperator(tmp_str[cell_num], extra_ch)) != TokenConstants.NOT_OPERATION){
 					int return_val = PrintToken.printOperator(result_op);
 					if (return_val != 0) 
-						i = return_val;
+						cell_num = return_val;
 				}  
 				else if(result_op == TokenConstants.NOT_OPERATION) {
-					PrintToken.printVarOrNum(tmp_str, i);
+					PrintToken.printVarOrNum(tmp_str, cell_num);
 				}
 			}  	
 		}
