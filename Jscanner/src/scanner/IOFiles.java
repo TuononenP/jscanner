@@ -84,7 +84,7 @@ public class IOFiles {
 			in.close();
 		}
 		catch (IOException e) {
-			System.out.println(e);
+			e.printStackTrace();
 			return null;
 		}
 		return file;
