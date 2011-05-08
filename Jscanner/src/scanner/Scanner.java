@@ -16,6 +16,8 @@
  **************************************************************************/
 package scanner;
 
+import io.IOFiles;
+
 import java.io.File;
 import java.util.ArrayList;
 
@@ -37,27 +39,27 @@ public class Scanner {
 	private static int cell_num=0;
 	private static StringBuilder sB;
 	
-	public static int getOpt_cell() {
+	protected static int getOpt_cell() {
 		return opt_cell;
 	}
 
-	public static void setOpt_cell(int opt_cell) {
+	protected static void setOpt_cell(int opt_cell) {
 		Scanner.opt_cell = opt_cell;
 	}
 
-	public static int getCell_num() {
+	protected static int getCell_num() {
 		return cell_num;
 	}
 
-	public static void setCell_num(int cell_num) {
+	protected static void setCell_num(int cell_num) {
 		Scanner.cell_num = cell_num;
 	}
 
-	public static StringBuilder getSb() {
+	protected static StringBuilder getSb() {
 		return sB;
 	}
 
-	public static void setSb(StringBuilder sB) {
+	protected static void setSb(StringBuilder sB) {
 		Scanner.sB = sB;
 	}
 
@@ -119,7 +121,7 @@ public class Scanner {
 			
 			if(PrintToken.printKeyword(tmp_str, cell_num)) { //check for keywords
 				//do nothing here -> break (the operation is handled inside the if statement)
-			} else if( (result = ScanToken.isDelimiter(tmp_str[cell_num], extra_ch, extra_ch2, tmp_str, cell_num)) != TokenConstants.NOT_DELIMITER) { //check for delimiter
+			} else if( (result = ScanToken.isDelimiter(tmp_str[cell_num], extra_ch, extra_ch2, tmp_str)) != TokenConstants.NOT_DELIMITER) { //check for delimiter
 				PrintToken.printDelimiter(result, opt_cell);
 			}
 			else if(result == TokenConstants.NOT_DELIMITER){

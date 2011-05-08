@@ -14,7 +14,7 @@
  *  You should have received a copy of the GNU General Public License     *
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  **************************************************************************/
-package scanner;
+package io;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -67,7 +67,7 @@ public class IOFiles {
 
 	public static void write(String s) {
 		try {
-			pw = new PrintWriter(new FileWriter(getOutputFile(), true));
+			pw = new PrintWriter(new FileWriter(getOutputFile(), false));
 			pw.print(s);	
 			pw.flush();
 		} catch (IOException e) {
