@@ -67,6 +67,10 @@ public class PrintToken {
 			Scanner.getSb().append(TokenNames.CONST_STRING);
 			Scanner.setCell_num(Scanner.getCell_num()+Scanner.getOpt_cell());
 			break;
+		case TokenConstants.COMMENT_STRING :
+			Scanner.getSb().append(TokenNames.COMMENT_STRING);
+			Scanner.setCell_num(Scanner.getCell_num()+Scanner.getOpt_cell());
+			break;
 		}
 	}
 	
@@ -108,11 +112,11 @@ public class PrintToken {
 		case TokenConstants.GT :
 			Scanner.getSb().append(TokenNames.GT);
 			break;
-		case TokenConstants.EOL :
-			Scanner.getSb().append(TokenNames.EOL);
+		case TokenConstants.LOE :
+			Scanner.getSb().append(TokenNames.LOE);
 			break;
-		case TokenConstants.GOL :
-			Scanner.getSb().append(TokenNames.GOL);
+		case TokenConstants.GOE :
+			Scanner.getSb().append(TokenNames.GOE);
 			break;
 		case TokenConstants.NOT_EQ : 
 			Scanner.getSb().append(TokenNames.NOT_EQ);

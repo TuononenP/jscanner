@@ -24,6 +24,8 @@ import constants.TokenConstants;
  */
 public class ScanToken {
 
+	private static boolean commentSet = false;
+		
 	public static boolean isNumber(char ch) {
 		if(ch >= '0' && ch <= '9') 
 			return true;
@@ -45,21 +47,67 @@ public class ScanToken {
 			return false;
 	}
 
-	public static int isDelimiter(char ch, char extra_ch, char extra_ch2, char[] str, int dq_i) {
+	public static int isDelimiter(char ch, char extra_ch, char extra_ch2, char[] str) {
 		int flag = TokenConstants.FALSE;
 		int i=0;
 		int tmp_cnt=0;
 
-		if (str.length > dq_i + 1) {
-			i = dq_i + 1;
+//		if(ch == '/' && extra_ch == '*') {
+//			commentSet = true;
+//			if(str.length <= 3) 
+//				return TokenConstants.OB_CMT;
+//			while(str.length <i ) {
+//				while(str[i+1] != '\n') {	
+//					if(str[i] == '*' && str[i+1] == '/') {
+//						commentSet = false;
+//						Scanner.setOpt_cell(i);
+//					}
+//					i++;
+//				}
+//				i=0;
+//				Scanner.setOpt_cell(0);
+//			}
+//			return TokenConstants.COMMENT_STRING;
+//		} else if(ch == '\'') {
+//			if(str.length <= 2)
+//				return TokenConstants.S_QUOT;
+//			while(str[i] != '\n') {
+//				if(str[i] == '\'' && tmp_cnt == 1) {
+//					Scanner.setOpt_cell(i);
+//					return TokenConstants.CONST_CHAR;}
+//				tmp_cnt++;
+//				i++;
+//			}								
+//		} else if(ch == '\"' ) {
+//			if(str.length <= 2) 
+//				return TokenConstants.D_QUOT;
+//			while(str[i] != '\n') {	
+//				if(str[i] == '\"') {
+//					Scanner.setOpt_cell(i);
+//					return TokenConstants.CONST_STRING;}
+//				i++;
+//			}								
+//		} else if(ch == '/' && extra_ch == '/') {
+//			while(str[i+1] != '\n') {
+//				Scanner.setOpt_cell(Scanner.getOpt_cell() + 1);
+//				i++;
+//				return TokenConstants.NOT_DELIMITER;
+//			}
+//			return TokenConstants.COMMENT_STRING;
+//		} else if(ch == '*' && extra_ch == '/')
+//			return TokenConstants.CB_CMT;
+		
+
+		if (str.length > Scanner.getCell_num() + 1) {
+			i = Scanner.getCell_num() + 1;
 			flag = TokenConstants.TRUE;
 		}	
 
 		if (ch == '/' && extra_ch == '/')
 			return TokenConstants.S_CMT;
-		else if(ch=='/' && extra_ch=='*')
+		else if(ch=='/' && extra_ch == '*')
 			return TokenConstants.OB_CMT;
-		else if(ch=='*' && extra_ch=='/') 
+		else if(ch=='*' && extra_ch == '/') 
 			return TokenConstants.CB_CMT;
 		else if(ch == '\''){
 			while(str[i] != '\n') {	
@@ -81,17 +129,21 @@ public class ScanToken {
 			}								
 		}
 
-		switch(ch){
-		case ';' : return TokenConstants.SEMI; 	
-		case '(' : return TokenConstants.O_PA; 	
-		case ')' : return TokenConstants.C_PA; 	
-		case '{' : return TokenConstants.O_SB; 	
-		case '}' : return TokenConstants.C_SB; 	
-		case ',' : return TokenConstants.COMM; 	
-		case '\'' : return TokenConstants.S_QUOT; 	
-		case '\"' : return TokenConstants.D_QUOT; 
-		default : return TokenConstants.NOT_DELIMITER;
-		}
+//		if (commentSet == false) {
+			switch (ch) {
+			case ';' : return TokenConstants.SEMI; 	
+			case '(' : return TokenConstants.O_PA; 	
+			case ')' : return TokenConstants.C_PA; 	
+			case '{' : return TokenConstants.O_SB; 	
+			case '}' : return TokenConstants.C_SB; 	
+			case ',' : return TokenConstants.COMM; 	
+			case '\'' : return TokenConstants.S_QUOT; 	
+			case '\"' : return TokenConstants.D_QUOT; 
+			default : return TokenConstants.NOT_DELIMITER;
+			}
+//		}
+		
+//		return TokenConstants.NOT_DELIMITER;
 	}
 
 	public static int isOperator(char ch, char extra_ch) {
@@ -106,13 +158,13 @@ public class ScanToken {
 		else if(ch == '-' && extra_ch == '=')
 			return TokenConstants.SUB_ASSIGN;
 		else if(ch == '<' && extra_ch == '=')
-			return TokenConstants.EOL;
+			return TokenConstants.LOE;
 		else if(ch == '>' && extra_ch == '=')
-			return TokenConstants.GOL;
+			return TokenConstants.GOE;
 		else if(ch == '!' && extra_ch == '=')
 			return TokenConstants.NOT_EQ;
 
-		switch(ch){
+		switch (ch) {
 		case '=' : return TokenConstants.ASSIGN ; 		
 		case '/' : return TokenConstants.DIV; 	
 		case '*' : return TokenConstants.MUL; 	
