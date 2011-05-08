@@ -118,7 +118,7 @@ public class Scanner {
 			}
 			
 			if(PrintToken.printKeyword(tmp_str, cell_num)) { //check for keywords
-				//do nothing here -> break (the operation is handled inside the if statement)lineC
+				//do nothing here -> break (the operation is handled inside the if statement)
 			} else if( (result = ScanToken.isDelimiter(tmp_str[cell_num], extra_ch, extra_ch2, tmp_str, cell_num)) != TokenConstants.NOT_DELIMITER) { //check for delimiter
 				PrintToken.printDelimiter(result, opt_cell);
 			}
